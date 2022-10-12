@@ -1,36 +1,54 @@
-/* render elemnts */
-* {
-  margin: 0;
-  padding: 0;
+:root {
+  --Soft-blue: hsl(215, 51%, 70%);
+  --cyan: hsl(178, 100%, 50%);
+  --white: hsl(0, 0%, 100%);
+  --main-bg: hsl(217, 54%, 11%);
+  --card-bg: hsl(216, 50%, 16%);
+  --line-clr: hsl(215, 32%, 27%);
+}
+
+html {
   box-sizing: border-box;
 }
 
-/* style start */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
 body {
   height: 100vh;
+  background-color: var(--main-bg);
+  font-family: "Outfit", sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+main {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: hsl(217, 54%, 11%);
-  font-family: "Outfit", sans-serif;
 }
 
 .card {
-  padding: 1rem;
-  width: 90%;
-  max-width: 375px;
-  border-radius: 1rem;
-  background-color: hsl(216, 50%, 16%);
-  box-shadow: 0 0 5px hsl(215, 32%, 27%);
+  padding: 1.2em;
+  width: min(90%, 21.5rem);
+  border-radius: 0.8rem;
+  background-color: var(--card-bg);
+  box-shadow: 0 0 3px var(--line-clr);
 }
 
-/* card img start */
-.card .card__img {
-  max-height: 345px;
+.card__img {
+  width: 100%;
+  border-radius: 0.4rem;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
-  border-radius: 1rem;
-  cursor: pointer;
 }
 
 .card__img::before {
@@ -38,14 +56,13 @@ body {
   position: absolute;
   top: 50%;
   right: 50%;
-  width: 50px;
-  height: 50px;
+  width: 3rem;
+  height: 3rem;
   background-image: url(../images/icon-view.svg);
   background-repeat: no-repeat;
+  background-position: center;
   transform: translate(50%, -50%);
-  transition: 0.5s;
-  opacity: 0;
-  z-index: 4;
+  z-index: 100;
 }
 
 .card__img::after {
@@ -55,10 +72,15 @@ body {
   right: 0%;
   height: 100%;
   width: 100%;
-  background-color: hsl(178, 100%, 50%);
-  transition: 0.3s;
+  background-color: var(--cyan);
+  border-radius: 0.4rem;
+  z-index: 90;
+}
+
+.card__img::after,
+.card__img::before {
   opacity: 0;
-  z-index: 3;
+  transition: opacity 500ms linear;
 }
 
 .card__img:hover::after {
@@ -72,90 +94,81 @@ body {
 .card__img img {
   width: 100%;
   height: 100%;
+  display: block;
 }
 
-/* card content start */
-.card .card__content {
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid hsl(215, 32%, 27%);
-}
-
-.content__title {
-  margin: 1rem 0;
-  color: hsl(0, 0%, 100%);
-  text-transform: capitalize;
-  transition: 0.3s;
+.card__title {
+  margin-top: 1.2em;
+  color: var(--white);
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: color 500ms linear;
   cursor: pointer;
 }
 
-.content__title:hover {
-  color: hsl(178, 100%, 50%);
+.card__title:hover {
+  color: var(--cyan);
 }
 
-.content__descripe {
-  margin-bottom: 1rem;
-  color: hsl(215, 51%, 70%);
-  text-transform: capitalize;
+.card__describe {
+  margin-block: 1em;
+  color: var(--Soft-blue);
 }
 
-.left-img:first-of-type {
-  display: inline-flex;
+.card__status {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  color: hsl(178, 100%, 50%);
-  text-transform: uppercase;
+  margin-bottom: 0.8em;
+  padding-bottom: 1.2em;
+  border-bottom: 1px solid var(--line-clr);
 }
 
-.left-img:first-of-type img {
-  margin-right: 5px;
-  width: auto;
-  height: auto;
-}
-
-.right-img:last-of-type {
-  display: inline-flex;
-  align-items: center;
-  float: right;
-  color: hsl(215, 51%, 70%);
-}
-
-.right-img:last-of-type img {
-  margin-right: 5px;
-  width: auto;
-  height: auto;
-}
-
-/* card footer start */
-.card .footer {
+.card__status .coin,
+.card__status .time {
   display: flex;
   align-items: center;
+  column-gap: 0.3rem;
 }
 
-.footer .footer__img {
-  width: 3rem;
-  height: 3rem;
-  border: 1px solid hsl(0, 0%, 100%);
+.coin {
+  font-weight: bold;
+  color: var(--cyan);
+}
+
+.time {
+  color: var(--Soft-blue);
+}
+
+.coin img,
+.time img {
+  width: auto;
+  height: auto;
+}
+
+.card__author {
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+}
+
+.author__img {
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--white);
   border-radius: 50%;
-  overflow: hidden;
 }
 
-.footer__img img {
-  width: 100%;
-  height: 100%;
+.author__about {
+  color: var(--Soft-blue);
 }
 
-.footer__content {
-  margin-left: 15px;
-  margin-bottom: 0;
-  color: hsl(215, 51%, 70%);
-  text-transform: capitalize;
-}
-
-.footer__content span {
-  transition: 0.3s;
+.author__name {
+  color: var(--white);
+  transition: color 500ms linear;
   cursor: pointer;
 }
 
-.footer__content span:hover {
-  color: hsl(178, 100%, 50%);
+.author__name:hover {
+  color: var(--cyan);
 }
